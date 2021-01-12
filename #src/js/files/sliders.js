@@ -59,7 +59,7 @@ if (sliderScrollItems.length > 0) {
 
 function sliders_bild_callback(params) { }
 
-let slider_about = new Swiper('.slider', {
+let slider_main = new Swiper('.main__slider-body', {
 	/*
 	effect: 'fade',
 	autoplay: {
@@ -79,15 +79,15 @@ let slider_about = new Swiper('.slider', {
 	//preloadImages: false,
 	//lazy: true,
 	// Dotts
-	//pagination: {
-	//	el: '.slider-quality__pagging',
-	//	clickable: true,
-	//},
-	// Arrows
-	navigation: {
-		nextEl: '.about__more .more__item_next',
-		prevEl: '.about__more .more__item_prev',
+	pagination: {
+		el: '.main__slider-pagination',
+		clickable: true,
 	},
+	// Arrows
+	// navigation: {
+	// 	nextEl: '.about__more .more__item_next',
+	// 	prevEl: '.about__more .more__item_prev',
+	// },
 	/*
 	breakpoints: {
 		320: {
@@ -109,6 +109,80 @@ let slider_about = new Swiper('.slider', {
 		},
 	},
 	*/
+	on: {
+		lazyImageReady: function () {
+			ibg();
+		},
+	}
+	// And if we need scrollbar
+	//scrollbar: {
+	//	el: '.swiper-scrollbar',
+	//},
+});
+
+
+let slider_popular = new Swiper('.main__popular-slider', {
+	/*
+	effect: 'fade',
+	autoplay: {
+		delay: 3000,
+		disableOnInteraction: false,
+	},
+	*/
+	observer: true,
+	observeParents: true,
+	slidesPerView: 3,
+	// slidesPerColumn: 2,
+	spaceBetween: 30,
+	// autoHeight: true,
+	// speed: 800,
+	//touchRatio: 0,
+	//simulateTouch: false,
+	//loop: true,
+	//preloadImages: false,
+	//lazy: true,
+	// Dotts
+	pagination: {
+        el: '.main__popular-pagination',
+        type: 'fraction',
+      },
+	// Arrows
+	navigation: {
+		nextEl: '.main__popular-button-next',
+		prevEl: '.main__popular-button-prev',
+	},
+	
+	breakpoints: {
+
+		1200: {
+			slidesPerView: 3,
+			spaceBetween: 30,
+		},
+		
+		992: {
+			slidesPerView: 2,
+		},
+
+		960: {
+			slidesPerView: 2,
+		},
+		767: {
+			slidesPerView: 2,
+		},
+		640: {
+			slidesPerView: 2,
+		},
+		480: {
+			slidesPerView: 1,
+		},
+		320: {
+			slidesPerView: 1,
+		},
+	
+	
+	
+	},
+	
 	on: {
 		lazyImageReady: function () {
 			ibg();

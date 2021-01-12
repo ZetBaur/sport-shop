@@ -1,36 +1,62 @@
-// =============Add active class to current element=========================================
+// ===============Catalog-filter===================================================================================
 
-let btns = document.getElementsByClassName("top-header__lang-item");
+const elem = document.querySelector('.grid');
+const iso = new Isotope(elem, {
+	// options
+	itemSelector: '.grid-item',
+	filter: '.sportsart'
+});
 
-for (let i = 0; i < btns.length; i++) {
-    btns[i].addEventListener("click", function () {
-        let current = document.getElementsByClassName("active");
-        current[0].className = current[0].className.replace(" active", "");
-        this.className += " active";
-    });
+
+// =============Catalog-filter active class to current element=========================================
+
+let filterBtns = document.getElementsByClassName("catalog-filter__button");
+
+for (let i = 0; i < filterBtns.length; i++) {
+	filterBtns[i].addEventListener("click", function () {
+
+		let current = document.getElementsByClassName("active");
+
+		current[0].className = current[0].className.replace(" active", "");
+
+		this.className += " active";
+
+		const filterName = filterBtns[i].getAttribute('data-filter');
+
+		iso.arrange({
+			filter: `.${filterName}`
+		});
+	});
 }
 
 
+
+// ======================================================================================================================
+
+let catalogBurger = document.querySelector('.catalog-section__burger');
+let catalogBody = document.querySelector('.catalog-section__list');
+
+catalogBurger.addEventListener('click', function () {
+	catalogBurger.classList.toggle('_active');
+	_slideToggle(catalogBody);
+});
 
 //=================Menu=========================================================================================================
-let iconMenu = document.querySelector(".icon-menu");
-if (iconMenu != null) {
-	let delay = 500;
-	let menuBody = document.querySelector(".menu__body");
-	iconMenu.addEventListener("click", function (e) {
-		if (unlock) {
-			body_lock(delay);
-			iconMenu.classList.toggle("_active");
-			menuBody.classList.toggle("_active");
-		}
+let burger = document.querySelector(".burger");
+let menu = document.querySelector(".header__nav-row");
+let menuClose = document.querySelector(".menu-close");
+let delay = 500;
+
+if (menu != null) {
+	burger.addEventListener("click", function (e) {
+		body_lock(delay);
+		menu.classList.add("open");
 	});
 };
-function menu_close() {
-	let iconMenu = document.querySelector(".icon-menu");
-	let menuBody = document.querySelector(".menu__body");
-	iconMenu.classList.remove("_active");
-	menuBody.classList.remove("_active");
-}
+menuClose.addEventListener("click", function (e) {
+	menu.classList.remove("open");
+});
+
 
 // ==============================ibg=============================================================================================
 
@@ -55,25 +81,25 @@ let unlock = true;
 
 
 //==============Tabs==================================================================================================================
-let tabs = document.querySelectorAll("._tabs");
-for (let index = 0; index < tabs.length; index++) {
-	let tab = tabs[index];
-	let tabs_items = tab.querySelectorAll("._tabs-item");
-	let tabs_blocks = tab.querySelectorAll("._tabs-block");
-	for (let index = 0; index < tabs_items.length; index++) {
-		let tabs_item = tabs_items[index];
-		tabs_item.addEventListener("click", function (e) {
-			for (let index = 0; index < tabs_items.length; index++) {
-				let tabs_item = tabs_items[index];
-				tabs_item.classList.remove('_active');
-				tabs_blocks[index].classList.remove('_active');
-			}
-			tabs_item.classList.add('_active');
-			tabs_blocks[index].classList.add('_active');
-			e.preventDefault();
-		});
-	}
-}
+// let tabs = document.querySelectorAll("._tabs");
+// for (let index = 0; index < tabs.length; index++) {
+// 	let tab = tabs[index];
+// 	let tabs_items = tab.querySelectorAll("._tabs-item");
+// 	let tabs_blocks = tab.querySelectorAll("._tabs-block");
+// 	for (let index = 0; index < tabs_items.length; index++) {
+// 		let tabs_item = tabs_items[index];
+// 		tabs_item.addEventListener("click", function (e) {
+// 			for (let index = 0; index < tabs_items.length; index++) {
+// 				let tabs_item = tabs_items[index];
+// 				tabs_item.classList.remove('_active');
+// 				tabs_blocks[index].classList.remove('_active');
+// 			}
+// 			tabs_item.classList.add('_active');
+// 			tabs_blocks[index].classList.add('_active');
+// 			e.preventDefault();
+// 		});
+// 	}
+// }
 //==================Spollers==================================================================================================================
 let spollers = document.querySelectorAll("._spoller");
 let spollersGo = true;
@@ -109,21 +135,7 @@ if (spollers.length > 0) {
 		});
 	}
 }
-//=================Gallery=========================================================================================================
-let gallery = document.querySelectorAll('._gallery');
-if (gallery) {
-	gallery_init();
-}
-function gallery_init() {
-	for (let index = 0; index < gallery.length; index++) {
-		const el = gallery[index];
-		lightGallery(el, {
-			counter: false,
-			selector: 'a',
-			download: false
-		});
-	}
-}
+
 
 
 //==============Popups===============================================================================================================
